@@ -60,7 +60,10 @@ while True:
         
 
         case 'todos':
-            window['todo'].update(value = values['todos'][0])
+            try:
+                window['todo'].update(value = values['todos'][0])
+            except IndexError:
+                continue           
 
         case "Exit":
             break
