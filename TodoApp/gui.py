@@ -3,6 +3,7 @@ import FreeSimpleGUI as sg
 import time
 
 
+
 clock = sg.Text("", key = "clock")
 label = sg.Text("Type in a to-do")
 input_box = sg. InputText(tooltip = "Enter todo", key = "todo")
@@ -24,7 +25,7 @@ window = sg.Window('My To-Do App',
 
 while True:
     event, values = window.read(timeout = 200)
-    window["clock"].update(value= time.strftime("%b %d, %Y %H:%M:%S"))
+    
 
     match event:
         case "Add": 
@@ -41,7 +42,7 @@ while True:
 
                 todos = functions.get_todos()
                 index = todos.index(todo_to_edit)
-                todos[index] = new_todo
+                todos[index] = new_todo.rstrip("\n") + "\n"
                 functions.write_todos(todos)
                 window['todos'].update(values = todos)
             except IndexError:
@@ -56,12 +57,16 @@ while True:
                 window['todo'].update(value = "")
             except IndexError:
                 sg.popup("Please select an item first", font = ("Helvetica", 15))
-        case "Exit":
-            break
+        
 
         case 'todos':
             window['todo'].update(value = values['todos'][0])
+
+        case "Exit":
+            break
         case sg.WIN_CLOSED: 
             break
+
+    window["clock"].update(value= time.strftime("%b %d, %Y %H:%M:%S"))
 
 window.close()
