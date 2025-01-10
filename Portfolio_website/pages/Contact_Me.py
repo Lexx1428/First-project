@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 from send_email import send_email 
 
 
@@ -15,5 +16,12 @@ From: {user_email}
 {raw_message}
     """
     if button:
-        send_email(message)
+        #send_email(message)
+        with st.spinner('Wait for it...'):
+            time.sleep(1)
         st.info("Email sent successfully!")
+        st.balloons()
+
+st.caption("You can also contact me with the following E-mail: \n"
+        "vlexure14@gmail.com")
+
